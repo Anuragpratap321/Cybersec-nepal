@@ -1,0 +1,7 @@
+{
+  "name": "CyberSec Nepal",
+  "description": "CyberSec Nepal makes cybersecurity, ethical hacking, technology, privacy, and digital safety simple and understandable for everyone.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
