@@ -3,6 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Safe guard against browser extensions / environments attempting to assign window.fetch
+      // when Window only exposes a getter without a setter:
+      (function() {
+        try {
+          var rawFetch = window.fetch ? window.fetch.bind(window) : undefined;
+          var activeFetch = rawFetch;
+          Object.defineProperty(window, 'fetch', {
+            configurable: true,
+            enumerable: true,
+            get: function() {
+              return activeFetch;
+            },
+            set: function(val) {
+              activeFetch = val;
+            }
+          });
+        } catch (e) {
+          try {
+            if (typeof Window !== 'undefined' && Window.prototype) {
+              var protoFetch = Window.prototype.fetch;
+              var activeProtoFetch = protoFetch ? protoFetch.bind(window) : undefined;
+              Object.defineProperty(Window.prototype, 'fetch', {
+                configurable: true,
+                enumerable: true,
+                get: function() {
+                  return activeProtoFetch;
+                },
+                set: function(val) {
+                  activeProtoFetch = val;
+                }
+              });
+            }
+          } catch (err) {}
+        }
+      })();
+    </script>
     <title>CyberSec Nepal | Cybersecurity, Ethical Hacking &amp; Tech</title>
     <meta
       name="description"
